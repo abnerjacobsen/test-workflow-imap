@@ -14,8 +14,4 @@ jobs:
         with:
           url: https://webhook.site/c1ffd3ec-dd3a-41ae-b1fc-079c73bd2383
           method: POST
-          body: |
-            {
-              "assunto":"${{ on.email.outputs.subject }}", 
-              "content":"<<<${{ on.email.outputs.text }}>>>"
-            }
+          body: ${{ on.email.outputs.text }}
