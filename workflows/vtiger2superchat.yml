@@ -5,14 +5,17 @@ on:
       user: ${{secrets.EMAIL_USER}}
       password: ${{secrets.EMAIL_PASSWORD}}
 jobs:
-  print:
-    name: Print
+  request:
+    name: Chama API do Superchat
     runs-on: ubuntu-latest
     steps:
-      - name: Print Outputs
-        env:
-          subject: ${{(on.email.outputs.subject)}}
-          content: ${{(on.email.outputs.text)}}
-        run: |
-          echo subject: $subject
-          echo content: $content
+      - name: Make a HTTP Request
+        uses: actionsflow/axios@v1
+        with:
+          url: https://webhook.site/c1ffd3ec-dd3a-41ae-b1fc-079c73bd2383
+          method: POST
+          body: |
+            {
+              "assunto":"${{ on.email.outputs.subject }}", 
+              "content":"<<<${{ on.email.outputs.text }}>>>"
+            }
