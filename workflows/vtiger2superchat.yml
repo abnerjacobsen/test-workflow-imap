@@ -1,0 +1,18 @@
+on:
+  email:
+    imap:
+      host: mail.linuxsolutions.com.br
+      user: ${{secrets.EMAIL_USER}}
+      password: ${{secrets.EMAIL_PASSWORD}}
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          subject: ${{(on.email.outputs.subject)}}
+          content: ${{(on.email.outputs.text)}}
+        run: |
+          echo subject: $subject
+          echo content: $content
